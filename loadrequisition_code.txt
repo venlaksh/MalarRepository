@@ -1,0 +1,34 @@
+  loadRequisition(res: requisitionUrl) {
+    if (res.nextStep != undefined || res.nextStep != null || res.nextStep != '') {
+      let url = res.nextStep;
+      url = url.replace('https://', '');
+      var urlSplit = url.split('/');
+      urlSplit.shift();
+      this.router.navigateByUrl(urlSplit.join('/'));
+    }
+    else {
+      this.snackBarMessageComponent.showSnackBarMessage(
+        'Requisition url is currently unvailable.please try after sometime ');
+    }
+  }
+
+  nextStepRedirectionurl(nextstep: string) {
+    if (nextstep != undefined || nextstep != null) {
+      if (nextstep.includes("requisitionUrl")) {
+        let url = nextstep;
+        url = url.replace('https://', '');
+        var urlSplit = url.split('/');
+        urlSplit.shift();
+        this.router.navigateByUrl(urlSplit.join('/'));
+      }
+      else if (nextstep == '') {
+        this.router.navigate([
+          'lab-requisitions-reference-lab-details', this.orderId, -1, '30-days'
+        ]);
+      }
+    }
+    else {
+      this.snackBarMessageComponent.showSnackBarMessage(
+        'Next step url is currently unavailable.please try after sometime');
+    }
+  }
